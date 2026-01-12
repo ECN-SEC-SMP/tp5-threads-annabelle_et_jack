@@ -24,7 +24,7 @@ public:
       this->sens = true;
       return true;
     }
-    else if (this->val > 0 && this->sens == true && )
+    else if (this->val > 0 && this->sens == true)
     {
       this->val++;
       return true;
