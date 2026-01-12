@@ -24,7 +24,7 @@ public:
       this->sens = true;
       return true;
     }
-    else if (this->val > 0 && this->sens == true)
+    else if (this->val > 0 && this->sens == true && this->val < 2)
     {
       this->val++;
       return true;
@@ -40,7 +40,7 @@ public:
       this->sens = false;
       return true;
     }
-    else if (this->val > 0 && this->sens == false)
+    else if (this->val > 0 && this->sens == false && this->val < 2)
     {
       this->val++;
       return true;
