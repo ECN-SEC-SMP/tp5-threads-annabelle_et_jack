@@ -13,39 +13,64 @@ class Controleur
 public:
   Controleur(int valeur_initiale) : val(valeur_initiale)
   {
-    this->sens = true;
+    this->sens = true; // true = B->A , false = A->B
+    this->val = 0; // nombre de trains sur la voie actuellement
+    this->compt = 0; // compteur de trains qui passes dans le meme sens
   }
 
-  bool controlinEnB(int numero)
+  bool controlinEnB(int numero) 
   {
+    // Premier train sur la voie
     if (this->val == 0)
     {
-      this->val++;
-      this->sens = true;
-      return true;
+        this->sens = true;  
+        this->compt = 0;     
     }
-    else if (this->val > 0 && this->sens == true && this->val < 2)
+
+    // Max 2 trains sur la voie en meme temps
+    if (this->val >= 2 && this->sens == true)
     {
-      this->val++;
-      return true;
+      return false;
+    } 
+
+    // Limite a 3 trains consécutifs dans un sens
+    if (this->sens == true && this->compt >= 3)
+    {
+      return false;
     }
-    return false;
+
+    // Autorisation de passer
+    this->val++;
+    this->compt++;
+    return true;
+
   }
 
   bool controlinEnA(int numero)
   {
+    // Premier train sur la voie
     if (this->val == 0)
     {
-      this->val++;
       this->sens = false;
-      return true;
+      this->compt = 0;     
     }
-    else if (this->val > 0 && this->sens == false && this->val < 2)
+
+    // Max 2 trains sur la voie en meme temps   
+    if (this->val >= 2 && this->sens == false)
     {
-      this->val++;
-      return true;
+      return false;
     }
-    return false;
+    
+    // Limite a 3 trains consécutifs dans un sens
+    if (this->sens == false && this->compt >=3)
+    {
+      return false;
+    }
+
+    // Autorisation de passer
+    this->val++;
+    this->compt++;
+    return true;
   }
 
   bool controloutEnB(int numero)
@@ -62,7 +87,8 @@ public:
 
 private:
   bool sens;
-  int val;
+  int val; 
+  int compt;
 };
 
 #endif // CONTROLEUR_HPP
